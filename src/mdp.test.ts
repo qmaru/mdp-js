@@ -1,4 +1,4 @@
-import { getMdprImages } from "./index"
+import getMdprImages from "./index"
 
 test("get images ok", async () => {
     const image_urls = await getMdprImages("https://mdpr.jp/cinema/3928728")

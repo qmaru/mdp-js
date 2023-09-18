@@ -1,4 +1,4 @@
-import parse from 'node-html-parser'
+import { parse } from 'node-html-parser'
 
 class MdprMedia {
     url: string;
@@ -36,8 +36,6 @@ class MdprMedia {
             "X-Requested-With": X_REQUESTED_WITH,
             "User-Agent": USER_AGENT
         });
-
-
 
         const response = await fetch(mobileIndex, { method: "get", headers: headers })
         const html = await response.text()
@@ -81,9 +79,14 @@ class MdprMedia {
     }
 }
 
-export const getMdprImages = async (url: string): Promise<string[]> => {
+const getMdprImages = async (url: string): Promise<string[]> => {
     const mdpr = new MdprMedia(url)
     const imageIndex = await mdpr.getImageIndex()
-    const imageUrls = await mdpr.getImageUrls(imageIndex)
-    return imageUrls
+    if (imageIndex != "") {
+        const imageUrls = await mdpr.getImageUrls(imageIndex)
+        return imageUrls
+    }
+    return []
 }
+
+export default getMdprImages
