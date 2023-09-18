@@ -6,35 +6,35 @@ class MdprMedia {
         this.url = url;
     }
 
-    private get_article_id(): string {
+    private getArticleId(): string {
         const url: string = this.url.trim()
         if (url.includes("https://mdpr.jp")) {
             if (!url.includes("photo/details")) {
-                let url_parts: string[] = url.split("/")
-                let url_len: number = url_parts.length
-                let article_id = url_parts[url_len - 1]
-                if (article_id !== undefined) {
-                    return article_id
+                let urlParts: string[] = url.split("/")
+                let urlLen: number = urlParts.length
+                let articleId = urlParts[urlLen - 1]
+                if (articleId !== undefined) {
+                    return articleId
                 }
             }
         }
         return ""
     }
 
-    async get_image_index(): Promise<string> {
-        const MDPRHOST: string = "https://app2-mdpr.freetls.fastly.net"
-        const USERAGENT: string = "Mozilla/5.0 (Linux; Android 7.1.1; E6533 Build/32.4.A.1.54; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/94.0.4606.85 Mobile Safari/537.36"
-        const XREQUESTEDWITH: string = "jp.mdpr.mdprviewer"
+    async getImageIndex(): Promise<string> {
+        const MDPR_HOST: string = "https://app2-mdpr.freetls.fastly.net"
+        const USER_AGENT: string = "Mozilla/5.0 (Linux; Android 7.1.1; E6533 Build/32.4.A.1.54; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/94.0.4606.85 Mobile Safari/537.36"
+        const X_REQUESTED_WITH: string = "jp.mdpr.mdprviewer"
 
-        const aid = this.get_article_id()
+        const aid = this.getArticleId()
         if (aid === "") {
             return ""
         }
 
-        const mobileIndex = `${MDPRHOST}/articles/detail/${aid}`
+        const mobileIndex = `${MDPR_HOST}/articles/detail/${aid}`
         const headers = new Headers({
-            "X-Requested-With": XREQUESTEDWITH,
-            "User-Agent": USERAGENT
+            "X-Requested-With": X_REQUESTED_WITH,
+            "User-Agent": USER_AGENT
         });
 
 
@@ -52,7 +52,7 @@ class MdprMedia {
                     const mdprJsonStr = decodeURIComponent(mdprData)
                     const mdprJson = JSON.parse(mdprJsonStr)
                     if (mdprJson.url.includes(aid)) {
-                        return MDPRHOST + mdprJson.url
+                        return MDPR_HOST + mdprJson.url
                     }
                 }
             }
@@ -60,13 +60,13 @@ class MdprMedia {
         return ""
     }
 
-    async get_image_urls(image_index: string): Promise<string[]> {
+    async getImageUrls(image_index: string): Promise<string[]> {
         let urls: string[] = []
-        const USERAGENT = "okhttp/4.9.1"
+        const USER_AGENT = "okhttp/4.9.1"
         const MDPRUSER_AGENT = "sony; E653325; android; 7.1.1; 3.10.4838(66);"
         const headers = new Headers({
             "mdpr-user-agent": MDPRUSER_AGENT,
-            "User-Agent": USERAGENT
+            "User-Agent": USER_AGENT
         });
 
         const response = await fetch(image_index, { method: "get", headers: headers })
@@ -81,9 +81,9 @@ class MdprMedia {
     }
 }
 
-export const mdpr_images = async (url: string): Promise<string[]> => {
+export const getMdprImages = async (url: string): Promise<string[]> => {
     const mdpr = new MdprMedia(url)
-    const image_index = await mdpr.get_image_index()
-    const image_urls = await mdpr.get_image_urls(image_index)
-    return image_urls
+    const imageIndex = await mdpr.getImageIndex()
+    const imageUrls = await mdpr.getImageUrls(imageIndex)
+    return imageUrls
 }
