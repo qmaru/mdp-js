@@ -1,6 +1,6 @@
 {
   "name": "@qmaru/mdp-js",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "js mdp image urls",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -10,8 +10,7 @@
     "test": "jest"
   },
   "files": [
-    "dist",
-    "package.json"
+    "dist"
   ],
   "author": "",
   "license": "ISC",
@@ -24,5 +23,8 @@
   },
   "dependencies": {
     "node-html-parser": "^6.1.10"
+  },
+  "publishConfig": {
+    "@qmaru:registry": "https://npm.pkg.github.com"
   }
 }
