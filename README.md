@@ -1,5 +1,5 @@
 # mdp-js
 
 ```shell
-npm run build
+pnpm run build
 ```
