@@ -1,4 +1,5 @@
-import getMdprImages from "./index"
+import { test, expect } from "bun:test"
+import getMdprImages from "../src/index"
 
 test("get images ok", async () => {
   const image_urls = await getMdprImages("https://mdpr.jp/cinema/3928728")

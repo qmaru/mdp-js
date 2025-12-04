@@ -62,7 +62,7 @@ class MdprMedia {
     })
 
     const response = await fetch(image_index, { method: "get", headers: headers })
-    const mdprImageData: MdprImageData = await response.json()
+    const mdprImageData = (await response.json()) as MdprImageData
     return mdprImageData.list.map((item) => item.url)
   }
 }
