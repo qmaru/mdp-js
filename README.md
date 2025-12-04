@@ -18,7 +18,7 @@ npx @qmaru/mdp-js@latest https://mdpr.jp/news/4690716
 ### Package
 
 ```shell
-import getMdprImages from './dist/index.js'
+import getMdprImages from '@qmaru/mdp-js'
 
 const url = "https://mdpr.jp/news/4690716"
 const imgUrls = await getMdprImages(url)
