@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import getMdprImages from "./index"
 
 const args = process.argv.slice(2)
