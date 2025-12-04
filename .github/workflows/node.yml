@@ -28,13 +28,7 @@ jobs:
       - name: Build
         run: bun run build
 
-      - name: Setup Node for publishing
-        uses: actions/setup-node@v6
-        with:
-          node-version: 22
-          registry-url: "https://npm.pkg.github.com"
-
       - name: Publish
-        run: bun publish
+        run: bun publish --registry https://npm.pkg.github.com
         env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NPM_CONFIG_TOKEN: ${{secrets.GITHUB_TOKEN}}
