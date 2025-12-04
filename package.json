@@ -32,7 +32,7 @@
     "node-html-parser": "^7.0.1"
   },
   "publishConfig": {
-    "@qmaru:registry": "https://npm.pkg.github.com"
-  },
-  "private": true
+    "@qmaru:registry": "https://npm.pkg.github.com",
+    "access": "public"
+  }
 }
